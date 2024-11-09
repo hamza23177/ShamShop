@@ -2,20 +2,19 @@ import { useState } from "react";
 import Rating from "../rating/Rating";
 import "./slider.css";
 import { Link } from "react-router-dom";
-import { products } from "../../data/products"; // تأكد من تحديد المسار الصحيح إلى ملف المنتجات
+import { products } from "../../data/products";
 
 const Slider = ({ isLaptop }) => {
   const [slideIndex, setSlideIndex] = useState(0);
 
-  // تصفية البيانات بناءً على نوع المنتج
   const filteredData = products.filter((product) => product.isLaptop === isLaptop);
 
   // Handle Click
   const handleClick = (direction) => {
-    if (direction === "left" && slideIndex > 0) {
+    if (direction === "right" && slideIndex > 0) {
       setSlideIndex(slideIndex - 1);
     }
-    if (direction === "right" && slideIndex < filteredData.length - 1) {
+    if (direction === "left" && slideIndex < filteredData.length - 1) {
       setSlideIndex(slideIndex + 1);
     }
   };
@@ -24,11 +23,11 @@ const Slider = ({ isLaptop }) => {
     <div className="slider-container">
       <button
         disabled={slideIndex === 0}
-        onClick={() => handleClick("left")}
+        onClick={() => handleClick("right")}
         className="bi bi-chevron-left arrow-left"
       ></button>
       <div
-        style={{ transform: `translateX(${slideIndex * -250}px)` }}
+        style={{ transform: `translateX(${slideIndex * 250}px)` }}
         className="slider-wrapper"
       >
         {filteredData.map((item) => (
@@ -42,7 +41,7 @@ const Slider = ({ isLaptop }) => {
       </div>
       <button
         disabled={slideIndex === filteredData.length - 1}
-        onClick={() => handleClick("right")}
+        onClick={() => handleClick("left")}
         className="bi bi-chevron-right arrow-right"
       ></button>
     </div>
