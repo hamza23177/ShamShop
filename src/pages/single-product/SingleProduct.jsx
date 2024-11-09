@@ -1,26 +1,17 @@
 import { useParams } from "react-router-dom";
-
 import Rating from "../../components/rating/Rating";
 import ProductDescription from "../special-offer-page/ProductDescription";
 import "./single-product.css";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getProductById } from "../../redux/apiCalls/productApiCall";
-import Spinner from "../../components/spinner/Spinner";
+import { products } from "../../data/products";
+import {useEffect } from "react";
 
 const SingleProduct = () => {
-  const dispatch = useDispatch();
-  const {product , loading} =useSelector(state => state.product);
-
-  const { id } = useParams();
-
+  const { id } = useParams(); // تعريف id أولاً
+  const product = products.find((p) => p.id === parseInt(id)); // استخدام id بعد تعريفه
+  
   useEffect(() => {
-    dispatch(getProductById(id));
     window.scrollTo(0,0)
-  }, [dispatch, id]);
-
-  if(loading) return <Spinner/>
-
+  }, []);
   return (
     <div className="single-product">
       <div className="product-wrapper">
@@ -30,7 +21,7 @@ const SingleProduct = () => {
         <div className="product-info">
           <h1 className="product-title">{product?.title}</h1>
           <Rating rating={product?.rating} reviews={product?.reviews} />
-          <div className="product-price">{product?.price}</div>
+          <div className="product-price">$ {product?.price}</div>
           <div className="product-add-to-cart">
             <div>الكمية</div>
             <input type="number" min="1" max="10" />
