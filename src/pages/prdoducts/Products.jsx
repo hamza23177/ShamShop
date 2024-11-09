@@ -17,7 +17,7 @@ const Products = () => {
 
   useEffect(() => {
     dispatch(fetchProducts());
-  }, []);
+  }, [dispatch]);
 
   // Filter Product
   const filteredProduct = products.filter((p) =>
