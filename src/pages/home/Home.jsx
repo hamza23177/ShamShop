@@ -29,7 +29,7 @@ const Home = () => {
       <Slider isLaptop={true} data={laptops} />
       <HeadingTitle title="الجديد من الموبايلات" />
       <Slider isLaptop={false} data={mobiles} />
-      <HeadingTitle title="تسوق حسب الماركة" />
+      <HeadingTitle title="تسوق حسب الماركيتنغ" />
       <Brands />
     </>
   );
