@@ -2,32 +2,36 @@ import { useState } from "react";
 import Rating from "../rating/Rating";
 import "./slider.css";
 import { Link } from "react-router-dom";
+import { products } from "../../data/products"; // تأكد من تحديد المسار الصحيح إلى ملف المنتجات
 
-const Slider = ({ data }) => {
+const Slider = ({ isLaptop }) => {
   const [slideIndex, setSlideIndex] = useState(0);
 
-  // Handle Click
+  // تصفية البيانات بناءً على نوع المنتج
+  const filteredData = products.filter((product) => product.isLaptop === isLaptop);
 
+  // Handle Click
   const handleClick = (direction) => {
-    if (direction === "left") {
+    if (direction === "left" && slideIndex > 0) {
       setSlideIndex(slideIndex - 1);
     }
-    if (direction === "right") {
+    if (direction === "right" && slideIndex < filteredData.length - 1) {
       setSlideIndex(slideIndex + 1);
     }
   };
+
   return (
     <div className="slider-container">
       <button
-        disabled={slideIndex === -data.length}
+        disabled={slideIndex === 0}
         onClick={() => handleClick("left")}
         className="bi bi-chevron-left arrow-left"
       ></button>
       <div
-        style={{ transform: `translate(${slideIndex * -250}px)` }}
+        style={{ transform: `translateX(${slideIndex * -250}px)` }}
         className="slider-wrapper"
       >
-        {data.map((item) => (
+        {filteredData.map((item) => (
           <Link to={`/products/${item.id}`} className="slide" key={item.id}>
             <img src={item.image} alt={item.title} className="slide-img" />
             <h3 className="slide-title">{item.title}</h3>
@@ -37,7 +41,7 @@ const Slider = ({ data }) => {
         ))}
       </div>
       <button
-        disabled={slideIndex === 1}
+        disabled={slideIndex === filteredData.length - 1}
         onClick={() => handleClick("right")}
         className="bi bi-chevron-right arrow-right"
       ></button>

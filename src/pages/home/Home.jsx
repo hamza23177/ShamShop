@@ -26,9 +26,9 @@ const Home = () => {
       <Category />
       <SpecialOffers />
       <HeadingTitle title="الجديد من اللابتوبات" />
-      <Slider data={laptops} />
+      <Slider isLaptop={true} data={laptops} />
       <HeadingTitle title="الجديد من الموبايلات" />
-      <Slider data={mobiles} />
+      <Slider isLaptop={false} data={mobiles} />
       <HeadingTitle title="تسوق حسب الماركة" />
       <Brands />
     </>
